@@ -3,7 +3,9 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const ejs = require('ejs');
 const config = require('./config');
+require('dotenv').config();
 
+const mongoURI = process.env.MONGOURI;
 const app = express();
 
 app.set('view engine', 'ejs');
