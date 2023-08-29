@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Editar Tarea</title>
+  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="icon" href="/img/icono.png" type="image/png">
+</head>
+<body>
+  <div class="container">
+    <h1>Editar Tarea</h1>
+    <!-- Formulario para editar la tarea -->
+    <form action="/tareas/actualizar/<%= tarea._id %>" method="post">
+      <label for="titulo">Título de la Tarea:</label>
+      <input type="text" name="titulo" id="titulo" value="<%= tarea.titulo %>" required>
+      
+      <label for="descripcion">Descripción:</label>
+      <textarea name="descripcion" id="descripcion" rows="4"><%= tarea.descripcion %></textarea>
+      
+      <label for="completada">Completada:</label>
+      <input type="checkbox" name="completada" id="completada" <% if (tarea.completada) { %>checked<% } %>>
+      <br>
+      <button class="guardar" type="submit">Guardar Cambios</button>
+      <a class="salir" href="/">
+        Cancelar
+      </a>
+    </form>
+  </div>
+    
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Tareas</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="icon" href="/img/icono.png" type="image/png">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Lista de tareas pendientes :)</h1>
+        <form action="/tareas/crear" method="post">
+            <label for="titulo">Titulo:</label>
+            <input type="text" name="titulo" id="titulo" placeholder="Nueva tarea" required>
+
+            
+            <label for="descripcion">Descripción:</label>
+            <textarea name="descripcion" id="descripcion" rows="4" placeholder="Descripcion de la tarea"></textarea>
+            <br>
+            <button type="submit">Agregar</button>
+        </form>
+
+        <table class="styled-table">
+            <thead>
+                <tr>
+                    <th>Titulo</th>
+                    <th>Descripcion</th>
+                    <th>Completada</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% tareas.forEach(function(tarea) { %>
+                    <tr>
+                        <td>
+                            <%= tarea.titulo %>
+                        </td>
+                        <td>
+                            <%= tarea.descripcion %>
+                        </td>
+                        <td>
+                            <input type="checkbox" <% if (tarea.completada) { %>checked<% } %> disabled>
+                        </td>
+                        <td>
+                            <a class="custom-tooltip" href="/tareas/editar/<%= tarea._id %>" data-tooltip="Editar">
+                                <img class="imagen-icon" src="/img/editar.png" alt="editar">
+                            </a>
+                            <button class="custom-tooltip" onclick="confirmarEliminar('<%= tarea._id %>')" data-tooltip="Eliminar">
+                            <img class="imagen-icon" src="/img/borrar.png" alt="borrar">
+                            </button>
+                        </td>
+                    </tr>
+                    <% }); %>
+            </tbody>
+        </table>
+
+    </div>
+    <script>
+        function confirmarEliminar(taskId) {
+            if (confirm("¿Estás seguro de que deseas eliminar esta tarea?")) {
+                const form = document.createElement('form');
+                form.method = 'POST';
+                form.action = '/tareas/eliminar/' + taskId;
+                const hiddenInput = document.createElement('input');
+                hiddenInput.type = 'hidden';
+                hiddenInput.name = '_method';
+                hiddenInput.value = 'DELETE';
+                form.appendChild(hiddenInput);
+                document.body.appendChild(form);
+                form.submit();
+            }
+        }
+    </script>
+</body>
+
+</html>
