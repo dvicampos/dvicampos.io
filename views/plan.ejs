@@ -1,0 +1,99 @@
+<!-- views/index.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plans</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="icon" href="/img/logo.jpg" type="image/png">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Nuestros planes ❤️</h1>
+        <form action="/planes/create" method="post">
+            <label for="nombreplan">Descripcion plan:</label>
+            <input type="text" name="nombreplan" required>
+            <br>
+            <label for="tipo">Tipo:</label>
+            <select name="tipo" required>
+                <option value="Cine">Cine</option>
+                <option value="Ver peli por zoom">Ver peli por zoom</option>
+                <option value="Salida a comer">Salida a comer</option>
+                <option value="Salida a un lugar">Salida a un lugar</option>
+            </select>
+            <br>
+            <label for="persona">Persona:</label>
+            <select name="persona">
+                <option value="Princesa">Princesa</option>
+                <option value="David">David</option>
+            </select>
+            <br>
+            <label for="fecha">Fecha:</label>
+            <input type="date" name="fecha" required>
+            <br>
+            <br>
+            <button type="submit">Crear cita con mi amorcito</button>
+        </form>
+        <table class="styled-table">
+            <thead>
+                <tr>
+                    <th>Nombre del plan</th>
+                    <th>Tipo de plan</th>
+                    <th>Personita</th>
+                    <th>Fecha</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% planes.forEach(function(plan) { %>
+                    <tr>
+                        <td>
+                            <%= plan.nombreplan %>
+                        </td>
+                        <td>
+                            <%= plan.tipo %>
+                        </td>
+                        <td>
+                            <%= plan.persona %>
+                        </td>
+                        <td>
+                            <%= plan.fecha.toDateString() %>
+                        </td>
+                        <td>
+                            <a href="/planes/edit/<%= plan._id %>" data-tooltip="Editar">
+                                <img class="imagen-icon" src="/img/editar.png" alt="editar">
+                            </a>
+
+                            <button class="custom-tooltip" onclick="confirmarEliminar('<%= plan._id %>')"
+                                data-tooltip="Eliminar">
+                                <img class="imagen-icon" src="/img/borrar.png" alt="borrar">
+                            </button>
+
+                        </td>
+                    </tr>
+                    <% }); %>
+            </tbody>
+        </table>
+    </div>
+    <script>
+        function confirmarEliminar(taskId) {
+            if (confirm("¿Estás seguro de que deseas eliminar este plan?")) {
+                const form = document.createElement('form');
+                form.method = 'POST';
+                form.action = '/planes/eliminar/' + taskId;
+                const hiddenInput = document.createElement('input');
+                hiddenInput.type = 'hidden';
+                hiddenInput.name = '_method';
+                hiddenInput.value = 'DELETE';
+                form.appendChild(hiddenInput);
+                document.body.appendChild(form);
+                form.submit();
+            }
+        }
+    </script>
+</body>
+
+
+</html>

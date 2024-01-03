@@ -1,0 +1,47 @@
+<!-- views/edit.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Plan</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="icon" href="/img/logo.jpg" type="image/png">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Edit Plan</h1>
+        <form action="/planes/actualizar/<%= plan._id %>" method="post">
+            <label for="nombreplan">Nombre Plan:</label>
+            <input type="text" name="nombreplan" value="<%= plan.nombreplan %>" required>
+            <br>
+            <label for="tipo">Tipo:</label>
+            <select name="tipo" required>
+                <option value="Cine" <%=plan.tipo==='Cine' ? 'selected' : '' %>>Cine</option>
+                <option value="Ver peli por zoom" <%=plan.tipo==='Ver peli por zoom' ? 'selected' : '' %>>Ver peli por
+                    zoom</option>
+                <option value="Salida a comer" <%=plan.tipo==='Salida a comer' ? 'selected' : '' %>>Salida a comer
+                </option>
+                <option value="Salida a un lugar" <%=plan.tipo==='Salida a un lugar' ? 'selected' : '' %>>Salida a un
+                    lugar</option>
+            </select>
+            <br>
+            <label for="persona">Persona:</label>
+            <select name="persona" required>
+                <option value="Princesa" <%=plan.persona==='Princesa' ? 'selected' : '' %>>Princesa</option>
+                <option value="David" <%=plan.persona==='David' ? 'selected' : '' %>>David</option>
+            </select>
+            <br>
+            <label for="fecha">Fecha:</label>
+            <input type="date" name="fecha" value="<%= plan.fecha.toISOString().split('T')[0] %>" required>
+            <br>
+            <br>
+            <button type="submit">Actualizar plan</button>
+        </form>
+        <a href="/planes">Regresar a planes</a>
+    </div>
+</body>
+
+</html>

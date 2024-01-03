@@ -17,6 +17,9 @@ mongoose
   .then(() => console.log('Server conectado a Mongo'))
   .catch(err => console.error('Error de conexión a MongoDB Atlas:', err));
 
+const planRoutes = require('./routes/planRoutes');
+app.use('/planes', planRoutes);
+
 const Tarea = require('./models/Tarea');
 
 const tareaRoutes = require('./routes/tarea');

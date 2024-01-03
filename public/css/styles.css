@@ -55,6 +55,21 @@ a {
     color: #007bff;
     margin-left: 10px;
 }
+
+select {
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-bottom: 10px;
+  }
+  
+  /* Optional: Add styles for dropdown options */
+  select option {
+    background-color: #f4f4f4;
+    color: #333;
+  }
+
 .salir{
     background-color: #b7b927;
     color: #fff;
